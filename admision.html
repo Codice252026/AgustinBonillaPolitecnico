@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Politecnico Agustín Bonilla | Admisión</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/png" href="favicon .png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<!-- Botón flotante para retroceder -->
+<button id="btnAtras" class="btn-atras" title="Volver a la página anterior">
+    <i class="fas fa-arrow-left"></i> Atrás
+</button>
+<div class="top-bar">
+    <div><i class="fas fa-map-marker-alt"></i>C/Agustín bonilla #1, Pimentel Provincia Duarte</div>
+    <div><i class="fas fa-phone-alt"></i> (809) 584-5729 / (809) 584-9104 &nbsp;|&nbsp; <i class="fas fa-envelope"></i> liceotecagustinbonilla@hotmail.com</div>
+</div>
+
+<nav class="navbar">
+    <div class="logo">
+        <img src="img/logo.png" alt="Logo politecnico Agustín Bonilla" width="50px" height="50px">
+        <div class="logo text">
+            <h1>POLITÉCNICO <span>AGUSTÍN BONILLA</span></h1> 
+        </div>
+    </div>
+    <div class="menu-icon" id="menuIcon">
+        <i class="fas fa-bars"></i>
+    </div>
+    <ul class="nav-links" id="navLinks">
+        <li><a href="index.html" class="nav-item active-nav">Inicio</a></li>
+        <li class="nav-item-dropdown">
+    <a href="javascript:void(0)" class="nav-item dropdown-toggle"> Ofertas académicas <i class="fas fa-chevron-down"></i></a>
+    <ul class="dropdown-menu">
+        <li><a href="tecnicos.html">Familias Profesionales</a></li>
+        <li><a href="cursos.html">Cursos y Talleres</a></li>
+    </ul>
+    </li>
+        <li><a href="admision.html" class="nav-item">Admisión</a></li>
+        <li><a href="galeria.html" class="nav-item">Galeria</a></li>
+            <li> <a href="nuestrahistoria.html" class="nav-item">Nuestra Historia</a></li>
+
+        
+    </ul>
+</nav>
+
+<main>
+    <section id="admision">
+        <h2 class="section-title"><i class="fas fa-user-graduate"></i> Proceso de Admisión</h2>
+        <p style="margin-bottom: 2rem; color: #475569; text-align: center; max-width: 800px; margin-left: auto; margin-right: auto;">
+            Complete el formulario con los datos del estudiante y el padre/madre/tutor. 
+            Al enviar, los datos llegarán directamente al correo del Politécnico.
+        </p>
+
+        <div class="two-columns">
+            <!-- COLUMNA IZQUIERDA: FORMULARIO -->
+            <div class="form-admision">
+                <h3 style="color: var(--primary); margin-bottom: 1.5rem;"><i class="fas fa-edit"></i> Formulario de Preinscripción</h3>
+                
+                <!-- FORMULARIO CON FORMSUBMIT -->
+                <form id="formAdmision" action="https://formsubmit.co/liceotecagustinbonilla@hotmail.com" method="POST">
+                    
+                    <!-- Campos ocultos de FormSubmit -->
+                    <input type="hidden" name="_subject" value="Nueva Preinscripción - Politécnico Agustín Bonilla">
+                    <input type="hidden" name="_captcha" value="true">
+                    <input type="hidden" name="_next" value="https://liceotecagustinbonilla@hotmail.com/admision.html?enviado=ok">
+                    
+                    <!-- Datos del Estudiante -->
+                    <h4 style="color: var(--primary-light); margin: 1rem 0 0.5rem 0;"><i class="fas fa-child"></i> Datos del Estudiante</h4>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Nombres del Estudiante <span class="required">*</span></label>
+                            <input type="text" name="estudiante_nombres" id="estudiante_nombres" placeholder="Ej: Juan Carlos" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Apellidos del Estudiante <span class="required">*</span></label>
+                            <input type="text" name="estudiante_apellidos" id="estudiante_apellidos" placeholder="Ej: Pérez Rodríguez" required>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Fecha de Nacimiento <span class="required">*</span></label>
+                            <input type="date" name="fecha_nacimiento" id="fecha_nacimiento" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Edad <span class="required">*</span></label>
+                            <input type="number" name="edad" id="edad" placeholder="Ej: 14" min="12" max="20" required>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Sexo <span class="required">*</span></label>
+                            <select name="sexo" id="sexo" required>
+                                <option value="">Seleccione...</option>
+                                <option value="Masculino">Masculino</option>
+                                <option value="Femenino">Femenino</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Dirección <span class="required">*</span></label>
+                            <input type="text" name="direccion" id="direccion" placeholder="Ej: Calle Principal #123, Santo Domingo" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Curso al que aplica <span class="required">*</span></label>
+                        <select name="curso" id="curso" required>
+                            <option value="">Seleccione...</option>
+                            <option value="3ro de Bachiller">3ro de Bachiller</option>
+                            <option value="4to de Bachiller">4to de Bachiller</option>
+                        </select>
+                    </div>
+                    <!-- MENSAJE CONDICIONAL PARA 4TO DE BACHILLER -->
+                    <div id="avisoPsicologico" class="aviso-psicologico" style="display: none;">
+                        <i class="fas fa-brain"></i> 
+                       <strong>Test Psicológico Obligatorio:</strong> 
+                        El/la estudiante debe realizar un test psicológico para entrar a los técnicos del liceo. 
+                        Esto servirá para determinar en qué familia profesional el/la estudiante cursará los años restantes en el Politécnico.
+                    </div>
+
+                    <!-- Datos del Padre/Madre/Tutor -->
+                    <h4 style="color: var(--primary-light); margin: 1.5rem 0 0.5rem 0;"><i class="fas fa-users"></i> Datos del Padre, Madre o Tutor</h4>
+                    <div class="form-group">
+                        <label>Nombre completo (Padre, Madre o Tutor) <span class="required">*</span></label>
+                        <input type="text" name="tutor_nombre" id="tutor_nombre" placeholder="Ej: Madre - María Elena Pérez" required>
+                        <small style="color: #64748b;">Especificar parentesco: Ej: Madre - María Pérez</small>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Número de Cédula <span class="required">*</span></label>
+                            <input type="text" name="cedula" id="cedula" placeholder="Ej: 001-1234567-8" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Teléfono <span class="required">*</span></label>
+                            <input type="tel" name="telefono" id="telefono" placeholder="Ej: 809-555-1234" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Correo Electrónico <span class="required">*</span></label>
+                        <input type="email" name="email" id="email" placeholder="Ej: madre@ejemplo.com" required>
+                        <small style="color: #64748b;">Recibirá una confirmación en este correo</small>
+                    </div>
+
+                    <button type="submit" class="btn-enviar"><i class="fas fa-paper-plane"></i> Enviar Solicitud</button>
+                    <div id="formFeedback"></div>
+                </form>
+            </div>
+
+            <!-- COLUMNA DERECHA: REQUISITOS -->
+            <div class="info-card">
+                <i class="fas fa-clipboard-list"></i>
+                <h3>Requisitos para Estudiantes de Nuevo Ingreso</h3>
+                <p style="margin-bottom: 1rem; color: #475569;">3ro y 4to de Bachiller</p>
+                <ul class="requisitos-lista">
+                    <li><i class="fas fa-file-alt"></i> Acta de Nacimiento Certificada</li>
+                    <li><i class="fas fa-graduation-cap"></i> Certificación de Conclusión de Nivel Primario (6to Grado)</li>
+                    <li><i class="fas fa-chart-line"></i> Acta de Calificación Final de 1er (7mo) y 2do (8vo)</li>
+                    <li><i class="fas fa-handshake"></i> Certificación de Buena Conducta (del Centro Educativo)</li>
+                    <li><i class="fas fa-stethoscope"></i> Certificado Médico</li>
+                    <li><i class="fas fa-id-card"></i> Copia de Cédula de los Padres o Tutor</li>
+                    <li><i class="fas fa-credit-card"></i> Copia de Tarjeta Solidaridad (si la tiene)</li>
+                    <li><i class="fas fa-syringe"></i> Copia tarjeta de Vacuna</li>
+                    <li><i class="fas fa-camera"></i> 2 Fotos 2x2 del Estudiante</li>
+                    <li><i class="fas fa-copy"></i> Una Copia de cada Documento</li>
+                    <li><i class="fas fa-folder"></i> Un Folder 8½ x 11</li>
+                </ul>
+                <p style="margin-top: 1rem; padding: 0.8rem; background: #eef2ff; border-radius: 0.8rem; font-size: 0.85rem;">
+                    <i class="fas fa-info-circle"></i> Estos documentos deben ser entregados en el centro cuando las inscripciones estén abiertas.
+                </p>
+            </div>
+        </div>
+    </section>
+</main>
+
+<footer>
+    <p>© 2026 Politécnico Agustín Bonilla – Comprometidos con la educación técnica de excelencia.</p>
+    <p style="margin-top: 0.5rem; font-size: 0.8rem;"><i class="fas fa-code"></i> Formulario de preinscripción para nuevos estudiantes.</p>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Politecnico Agustín Bonilla | Familias Profesionales</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+     <link rel="icon" type="image/png" href="favicon .png">
+    <link rel="stylesheet" href="Style.css">
+</head>
+<body>
+<!-- Botón flotante para retroceder -->
+<button id="btnAtras" class="btn-atras" title="Volver a la página anterior">
+    <i class="fas fa-arrow-left"></i> Atrás
+</button>
+<div class="top-bar">
+    <div><i class="fas fa-map-marker-alt"></i> C/Agustín bonilla #1, Pimentel Provincia Duarte</div>
+    <div><i class="fas fa-phone-alt"></i> (809) 584-5729 / (809) 584-9104 &nbsp;|&nbsp; <i class="fas fa-envelope"></i><a href="https://outlook.live.com/">liceotecagustinbonilla@hotmail.com</a></div>
+</div>
+
+<nav class="navbar">
+    <div class="logo">
+        <img src="img/logo.png" alt="Logo politecnico Agustín Bonilla" width="50px" height="50px">
+        <div class="logo text">
+            <h1>POLITÉCNICO <span>AGUSTÍN BONILLA</span></h1> 
+        </div>
+    </div>
+    <div class="menu-icon" id="menuIcon">
+        <i class="fas fa-bars"></i>
+    </div>
+    <ul class="nav-links" id="navLinks">
+    <li><a href="index.html" class="nav-item active-nav">Inicio</a></li>
+        <li class="nav-item-dropdown">
+    <a href="javascript:void(0)" class="nav-item dropdown-toggle"> Ofertas académicas <i class="fas fa-chevron-down"></i></a>
+    <ul class="dropdown-menu">
+        <li><a href="tecnicos.html">Familias Profesionales</a></li>
+        <li><a href="cursos.html">Cursos y Talleres</a></li>
+    </ul>
+    </li>
+        <li><a href="admision.html" class="nav-item">Admisión</a></li>
+        <li><a href="galeria.html" class="nav-item">Galeria</a></li>
+            <li> <a href="nuestrahistoria.html" class="nav-item">Nuestra Historia</a></li>
+
+    </ul> 
+</nav>
+
+<main>
+    <section id="familias-profesionales">
+        <h2 class="section-title"><i class="fas fa-microchip"></i> Familias Profesionales</h2>
+        <p style="margin-bottom: 2rem; color: #475569; text-align: center; max-width: 800px; margin-left: auto; margin-right: auto;">
+            Nuestra oferta académica está organizada en tres grandes áreas del conocimiento. 
+            Cada familia profesional agrupa bachilleratos técnicos especializados.
+        </p>
+
+        <!-- FAMILIA 1: Informática y Telecomunicaciones -->
+        <div class="familia-card">
+            <div class="familia-header">
+                <div class="familia-icon"><i class="fas fa-laptop-code"></i></div>
+                <h3>Informática y Comunicaciones</h3>
+                <p>Formación en tecnologías de la información, desarrollo de software y gestión de redes.</p>
+            </div>
+            <div class="bachilleratos-grid">
+                <div class="bachillerato-card">
+                    <div class="bachillerato-icon"><i class="fas fa-mobile-alt"></i></div>
+                    <h4>Diseño y Administración de Sistemas informaticos</h4>
+                    <p>Forma profesionales capaces de diseñar, desarrollar y mantener aplicaciones web, móviles y de escritorio.</p>
+                    <div class="competencias">
+                        <span><i class="fas fa-code"></i> Programación</span>
+                        <span><i class="fas fa-database"></i> Bases de Datos</span>
+                        <span><i class="fas fa-paint-brush"></i> Diseño UX/UI</span>
+                    </div>
+                </div>
+                <div class="bachillerato-card">
+                    <div class="bachillerato-icon"><i class="fas fa-network-wired"></i></div>
+                    <h4>Soporte de Redes y Sistemas Informaticos</h4>
+                    <p>Prepara técnicos en administración de redes, servidores, seguridad informática y soporte técnico.</p>
+                    <div class="competencias">
+                        <span><i class="fas fa-server"></i> Redes</span>
+                        <span><i class="fas fa-shield-alt"></i> Ciberseguridad</span>
+                        <span><i class="fas fa-cloud"></i> Cloud Computing</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- FAMILIA 2: Administración y Gestión -->
+        <div class="familia-card">
+            <div class="familia-header">
+                <div class="familia-icon"><i class="fas fa-chart-line"></i></div>
+                <h3>Administración y Gestión</h3>
+                <p>Preparación en gestión empresarial, finanzas, marketing y procesos administrativos.</p>
+            </div>
+            <div class="bachilleratos-grid">
+                <div class="bachillerato-card">
+                    <div class="bachillerato-icon"><i class="fas fa-file-invoice"></i></div>
+                    <h4>Gestión Administrativa y Tributaria</h4>
+                    <p>Capacita en procesos contables, gestión de impuestos, nóminas y documentación comercial.</p>
+                    <div class="competencias">
+                        <span><i class="fas fa-calculator"></i> Contabilidad</span>
+                        <span><i class="fas fa-file-alt"></i> Tributación</span>
+                        <span><i class="fas fa-users"></i> Gestión RRHH</span>
+                    </div>
+                </div>
+                <div class="bachillerato-card">
+                    <div class="bachillerato-icon"><i class="fas fa-store"></i></div>
+                    <h4>Comercio y Mercadeo</h4>
+                    <p>Forma profesionales en ventas, marketing digital, atención al cliente y negocios internacionales.</p>
+                    <div class="competencias">
+                        <span><i class="fas fa-chart-simple"></i> Marketing</span>
+                        <span><i class="fas fa-tags"></i> Ventas</span>
+                        <span><i class="fas fa-globe"></i> Comercio Digital</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- FAMILIA 3: Salud y Bienestar Social -->
+        <div class="familia-card">
+            <div class="familia-header">
+                <div class="familia-icon"><i class="fas fa-heartbeat"></i></div>
+                <h3>Salud y Bienestar Social</h3>
+                <p>Formación en cuidados de la salud, atención primaria y promoción del bienestar.</p>
+            </div>
+            <div class="bachilleratos-grid">
+                <div class="bachillerato-card">
+                    <div class="bachillerato-icon"><i class="fas fa-hand-holding-heart"></i></div>
+                    <h4>Cuidados de Enfermería y Promoción de la salud</h4>
+                    <p>Prepara técnicos en enfermería para brindar cuidados básicos, apoyo en emergencias y atención integral al paciente.</p>
+                    <div class="competencias">
+                        <span><i class="fas fa-heart"></i> Primeros Auxilios</span>
+                        <span><i class="fas fa-syringe"></i> Técnicas de Enfermería</span>
+                        <span><i class="fas fa-stethoscope"></i> Cuidados Básicos</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+
+<footer>
+    <p>© 2026 Politécnico Agustín Bonilla – Comprometidos con la educación técnica de excelencia.</p>
+    <p style="margin-top: 0.5rem; font-size: 0.8rem;"><i class="fas fa-code"></i> Tres familias profesionales con bachilleratos técnicos de calidad.</p>
+</footer>
+
+<script src="Script.js"></script>
+</body>
+</html>
