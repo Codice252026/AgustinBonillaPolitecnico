@@ -199,66 +199,78 @@ if (formContacto && contactoFeedback) {
         }, 8000);
     }
 }
-// ========== MODAL PARA DESCRIPCIONES DE COMPETENCIAS ==========
-const modal = document.getElementById('modalDescripcion');
-const modalTitulo = document.getElementById('modalTitulo');
-const modalTexto = document.getElementById('modalTexto');
-const modalClose = document.querySelector('.modal-close');
 
-// Diccionario de descripciones de competencias
-const descripciones = {
-    // Informática y Telecomunicaciones
-    "Programación": "La programación es el proceso de crear instrucciones para que una computadora ejecute tareas específicas. Implica escribir código en lenguajes como Python, Java o JavaScript.",
-    "Bases de Datos": "Las bases de datos son sistemas que permiten almacenar, organizar y recuperar información de manera eficiente, como los datos de estudiantes, notas o personal.",
-    "Diseño UX/UI": "El diseño UX (Experiencia de Usuario) se enfoca en que un sitio sea fácil y agradable de usar. El UI (Interfaz de Usuario) se encarga de los elementos visuales como botones, colores y tipografía.",
-    "Redes": "Las redes de computadoras permiten la comunicación entre dispositivos para compartir información y recursos, como internet o impresoras en red.",
-    "Ciberseguridad": "La ciberseguridad protege los sistemas, redes y datos de ataques digitales, accesos no autorizados o daños.",
-    "Cloud Computing": "La computación en la nube permite acceder a servicios de almacenamiento, servidores y aplicaciones a través de internet sin necesidad de infraestructura local.",
+  // MODAL PARA DESCRIPCIONES DE COMPETENCIAS  
+document.addEventListener('DOMContentLoaded', function() {
+    // Crear el modal dinámicamente si no existe
+    if (!document.getElementById('modalDescripcion')) {
+        const modalHTML = `
+            <div id="modalDescripcion" class="modal">
+                <div class="modal-content">
+                    <span class="modal-close">&times;</span>
+                    <h3 id="modalTitulo"></h3>
+                    <p id="modalTexto"></p>
+                </div>
+            </div>
+        `;
+        document.body.insertAdjacentHTML('beforeend', modalHTML);
+    }
     
-    // Administración y Gestión
-    "Contabilidad": "La contabilidad es la disciplina que registra, clasifica y resume las transacciones financieras de una empresa para conocer su situación económica.",
-    "Tributación": "La tributación estudia los impuestos y obligaciones fiscales que deben cumplir las personas y empresas ante el Estado.",
-    "Gestión RRHH": "La gestión de recursos humanos se encarga de administrar el personal de una empresa, incluyendo contratación, capacitación y desarrollo del talento humano.",
-    "Marketing": "El marketing es el conjunto de estrategias para identificar, atraer y fidelizar clientes, promoviendo productos o servicios.",
-    "Ventas": "Las ventas son el proceso de intercambiar productos o servicios por dinero, incluyendo la negociación y el cierre de acuerdos con clientes.",
-    "Comercio Digital": "El comercio digital o e-commerce consiste en comprar y vender productos o servicios a través de internet.",
+    const modal = document.getElementById('modalDescripcion');
+    const modalTitulo = document.getElementById('modalTitulo');
+    const modalTexto = document.getElementById('modalTexto');
+    const modalClose = document.querySelector('.modal-close');
     
-    // Salud y Bienestar Social
-    "Primeros Auxilios": "Los primeros auxilios son las técnicas básicas de emergencia que se aplican a una persona accidentada o enferma antes de recibir atención médica profesional.",
-    "Técnicas de Enfermería": "Las técnicas de enfermería incluyen procedimientos como toma de signos vitales, administración de medicamentos y cuidados básicos al paciente.",
-    "Cuidados Básicos": "Los cuidados básicos de enfermería incluyen la higiene, alimentación, movilización y confort del paciente durante su estancia en un centro de salud."
-};
-
-// Función para normalizar texto (ignora tildes, mayúsculas y caracteres especiales)
-function normalizarTexto(texto) {
-    return texto
-        .toLowerCase()
-        .normalize("NFD").replace(/[\u0300-\u036f]/g, "") // elimina tildes
-        .replace(/[^a-z0-9\s]/g, ''); // elimina caracteres especiales como /, -, etc.
-}
-
-// Agregar evento de clic a todas las etiquetas de competencias
-function inicializarModalCompetencias() {
+    // Diccionario de descripciones
+    const descripciones = {
+        "Programación": "La programación es el proceso de crear instrucciones para que una computadora ejecute tareas específicas.",
+        "Bases de Datos": "Las bases de datos son sistemas que permiten almacenar, organizar y recuperar información de manera eficiente.",
+        "Diseño UX/UI": "El diseño UX (Experiencia de Usuario) se enfoca en que un sitio sea fácil de usar. El UI (Interfaz de Usuario) se encarga de los elementos visuales.",
+        "Redes": "Las redes de computadoras permiten la comunicación entre dispositivos para compartir información.",
+        "Ciberseguridad": "La ciberseguridad protege los sistemas y datos de ataques digitales.",
+        "Cloud Computing": "La computación en la nube permite acceder a servicios a través de internet.",
+        "Contabilidad": "La contabilidad registra y resume las transacciones financieras de una empresa.",
+        "Tributación": "La tributación estudia los impuestos y obligaciones fiscales.",
+        "Gestión RRHH": "La gestión de recursos humanos administra el personal de una empresa.",
+        "Marketing": "El marketing son estrategias para atraer y fidelizar clientes.",
+        "Ventas": "Las ventas son el proceso de intercambiar productos por dinero.",
+        "Comercio Digital": "El comercio digital consiste en vender productos a través de internet.",
+        "Primeros Auxilios": "Son técnicas básicas de emergencia antes de atención médica profesional.",
+        "Técnicas de Enfermería": "Incluyen toma de signos vitales y administración de medicamentos.",
+        "Cuidados Básicos": "Incluyen higiene, alimentación y confort del paciente."
+    };
+    
+    // Agregar evento a todas las competencias
     const competencias = document.querySelectorAll('.competencias span');
+    console.log("Número de competencias encontradas:", competencias.length);
     
     competencias.forEach(span => {
-        let textoCompleto = span.innerText.trim();
-        // Limpiar íconos (eliminar cualquier ícono de Font Awesome)
-        let nombreCompetencia = textoCompleto.replace(/[^\w\s\/]/g, '').trim();
+        // Limpiar el texto del span (eliminar íconos)
+        let textoOriginal = span.innerText.trim();
+        let nombreCompetencia = textoOriginal.replace(/[^\w\s\/]/g, '').trim();
         
         span.style.cursor = 'pointer';
-        span.addEventListener('click', (e) => {
+        span.addEventListener('click', function(e) {
             e.stopPropagation();
             
-            // Buscar en descripciones usando normalización
-            const nombreNormalizado = normalizarTexto(nombreCompetencia);
-            const claveEncontrada = Object.keys(descripciones).find(clave => {
-                return normalizarTexto(clave) === nombreNormalizado;
-            });
+            // Buscar la descripción
+            let descripcion = descripciones[nombreCompetencia];
             
-            if (claveEncontrada) {
+            // Si no se encuentra, intentar buscar ignorando tildes y caracteres especiales
+            if (!descripcion) {
+                const nombreNormalizado = nombreCompetencia.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, '');
+                for (let clave in descripciones) {
+                    const claveNormalizada = clave.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, '');
+                    if (claveNormalizada === nombreNormalizado) {
+                        descripcion = descripciones[clave];
+                        break;
+                    }
+                }
+            }
+            
+            if (descripcion) {
                 modalTitulo.innerText = nombreCompetencia;
-                modalTexto.innerText = descripciones[claveEncontrada];
+                modalTexto.innerText = descripcion;
                 modal.style.display = 'flex';
             } else {
                 modalTitulo.innerText = nombreCompetencia;
@@ -267,23 +279,17 @@ function inicializarModalCompetencias() {
             }
         });
     });
-}
-
-// Cerrar modal al hacer clic en la X
-if (modalClose) {
-    modalClose.addEventListener('click', () => {
-        modal.style.display = 'none';
-    });
-}
-
-// Cerrar modal al hacer clic fuera del contenido
-window.addEventListener('click', (e) => {
-    if (e.target === modal) {
-        modal.style.display = 'none';
+    
+    // Cerrar modal
+    if (modalClose) {
+        modalClose.addEventListener('click', function() {
+            modal.style.display = 'none';
+        });
     }
-});
-
-// Inicializar el modal cuando el DOM esté listo
-document.addEventListener('DOMContentLoaded', () => {
-    inicializarModalCompetencias();
+    
+    window.addEventListener('click', function(e) {
+        if (e.target === modal) {
+            modal.style.display = 'none';
+        }
+    });
 });
