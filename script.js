@@ -199,7 +199,6 @@ if (formContacto && contactoFeedback) {
         }, 8000);
     }
 }
-
 // ========== MODAL PARA DESCRIPCIONES DE COMPETENCIAS ==========
 const modal = document.getElementById('modalDescripcion');
 const modalTitulo = document.getElementById('modalTitulo');
@@ -208,7 +207,7 @@ const modalClose = document.querySelector('.modal-close');
 
 // Diccionario de descripciones de competencias
 const descripciones = {
-    // Informática y Comunicaciones
+    // Informática y Telecomunicaciones
     "Programación": "La programación es el proceso de crear instrucciones para que una computadora ejecute tareas específicas. Implica escribir código en lenguajes como Python, Java o JavaScript.",
     "Bases de Datos": "Las bases de datos son sistemas que permiten almacenar, organizar y recuperar información de manera eficiente, como los datos de estudiantes, notas o personal.",
     "Diseño UX/UI": "El diseño UX (Experiencia de Usuario) se enfoca en que un sitio sea fácil y agradable de usar. El UI (Interfaz de Usuario) se encarga de los elementos visuales como botones, colores y tipografía.",
@@ -230,25 +229,38 @@ const descripciones = {
     "Cuidados Básicos": "Los cuidados básicos de enfermería incluyen la higiene, alimentación, movilización y confort del paciente durante su estancia en un centro de salud."
 };
 
+// Función para normalizar texto (ignora tildes, mayúsculas y caracteres especiales)
+function normalizarTexto(texto) {
+    return texto
+        .toLowerCase()
+        .normalize("NFD").replace(/[\u0300-\u036f]/g, "") // elimina tildes
+        .replace(/[^a-z0-9\s]/g, ''); // elimina caracteres especiales como /, -, etc.
+}
+
 // Agregar evento de clic a todas las etiquetas de competencias
 function inicializarModalCompetencias() {
     const competencias = document.querySelectorAll('.competencias span');
     
     competencias.forEach(span => {
-        // Limpiar el texto: eliminar el ícono si está presente
         let textoCompleto = span.innerText.trim();
-        let nombreCompetencia = textoCompleto.replace(/[^\w\s]/g, '').trim();
+        // Limpiar íconos (eliminar cualquier ícono de Font Awesome)
+        let nombreCompetencia = textoCompleto.replace(/[^\w\s\/]/g, '').trim();
         
         span.style.cursor = 'pointer';
         span.addEventListener('click', (e) => {
             e.stopPropagation();
-            const descripcion = descripciones[nombreCompetencia];
-            if (descripcion) {
+            
+            // Buscar en descripciones usando normalización
+            const nombreNormalizado = normalizarTexto(nombreCompetencia);
+            const claveEncontrada = Object.keys(descripciones).find(clave => {
+                return normalizarTexto(clave) === nombreNormalizado;
+            });
+            
+            if (claveEncontrada) {
                 modalTitulo.innerText = nombreCompetencia;
-                modalTexto.innerText = descripcion;
+                modalTexto.innerText = descripciones[claveEncontrada];
                 modal.style.display = 'flex';
             } else {
-                // Si no hay descripción específica, mostrar una genérica
                 modalTitulo.innerText = nombreCompetencia;
                 modalTexto.innerText = `Competencia técnica del área de especialización.`;
                 modal.style.display = 'flex';
