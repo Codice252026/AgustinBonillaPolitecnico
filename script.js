@@ -199,3 +199,79 @@ if (formContacto && contactoFeedback) {
         }, 8000);
     }
 }
+
+// ========== MODAL PARA DESCRIPCIONES DE COMPETENCIAS ==========
+const modal = document.getElementById('modalDescripcion');
+const modalTitulo = document.getElementById('modalTitulo');
+const modalTexto = document.getElementById('modalTexto');
+const modalClose = document.querySelector('.modal-close');
+
+// Diccionario de descripciones de competencias
+const descripciones = {
+    // Informática y Comunicaciones
+    "Programación": "La programación es el proceso de crear instrucciones para que una computadora ejecute tareas específicas. Implica escribir código en lenguajes como Python, Java o JavaScript.",
+    "Bases de Datos": "Las bases de datos son sistemas que permiten almacenar, organizar y recuperar información de manera eficiente, como los datos de estudiantes, notas o personal.",
+    "Diseño UX/UI": "El diseño UX (Experiencia de Usuario) se enfoca en que un sitio sea fácil y agradable de usar. El UI (Interfaz de Usuario) se encarga de los elementos visuales como botones, colores y tipografía.",
+    "Redes": "Las redes de computadoras permiten la comunicación entre dispositivos para compartir información y recursos, como internet o impresoras en red.",
+    "Ciberseguridad": "La ciberseguridad protege los sistemas, redes y datos de ataques digitales, accesos no autorizados o daños.",
+    "Cloud Computing": "La computación en la nube permite acceder a servicios de almacenamiento, servidores y aplicaciones a través de internet sin necesidad de infraestructura local.",
+    
+    // Administración y Gestión
+    "Contabilidad": "La contabilidad es la disciplina que registra, clasifica y resume las transacciones financieras de una empresa para conocer su situación económica.",
+    "Tributación": "La tributación estudia los impuestos y obligaciones fiscales que deben cumplir las personas y empresas ante el Estado.",
+    "Gestión RRHH": "La gestión de recursos humanos se encarga de administrar el personal de una empresa, incluyendo contratación, capacitación y desarrollo del talento humano.",
+    "Marketing": "El marketing es el conjunto de estrategias para identificar, atraer y fidelizar clientes, promoviendo productos o servicios.",
+    "Ventas": "Las ventas son el proceso de intercambiar productos o servicios por dinero, incluyendo la negociación y el cierre de acuerdos con clientes.",
+    "Comercio Digital": "El comercio digital o e-commerce consiste en comprar y vender productos o servicios a través de internet.",
+    
+    // Salud y Bienestar Social
+    "Primeros Auxilios": "Los primeros auxilios son las técnicas básicas de emergencia que se aplican a una persona accidentada o enferma antes de recibir atención médica profesional.",
+    "Técnicas de Enfermería": "Las técnicas de enfermería incluyen procedimientos como toma de signos vitales, administración de medicamentos y cuidados básicos al paciente.",
+    "Cuidados Básicos": "Los cuidados básicos de enfermería incluyen la higiene, alimentación, movilización y confort del paciente durante su estancia en un centro de salud."
+};
+
+// Agregar evento de clic a todas las etiquetas de competencias
+function inicializarModalCompetencias() {
+    const competencias = document.querySelectorAll('.competencias span');
+    
+    competencias.forEach(span => {
+        // Limpiar el texto: eliminar el ícono si está presente
+        let textoCompleto = span.innerText.trim();
+        let nombreCompetencia = textoCompleto.replace(/[^\w\s]/g, '').trim();
+        
+        span.style.cursor = 'pointer';
+        span.addEventListener('click', (e) => {
+            e.stopPropagation();
+            const descripcion = descripciones[nombreCompetencia];
+            if (descripcion) {
+                modalTitulo.innerText = nombreCompetencia;
+                modalTexto.innerText = descripcion;
+                modal.style.display = 'flex';
+            } else {
+                // Si no hay descripción específica, mostrar una genérica
+                modalTitulo.innerText = nombreCompetencia;
+                modalTexto.innerText = `Competencia técnica del área de especialización.`;
+                modal.style.display = 'flex';
+            }
+        });
+    });
+}
+
+// Cerrar modal al hacer clic en la X
+if (modalClose) {
+    modalClose.addEventListener('click', () => {
+        modal.style.display = 'none';
+    });
+}
+
+// Cerrar modal al hacer clic fuera del contenido
+window.addEventListener('click', (e) => {
+    if (e.target === modal) {
+        modal.style.display = 'none';
+    }
+});
+
+// Inicializar el modal cuando el DOM esté listo
+document.addEventListener('DOMContentLoaded', () => {
+    inicializarModalCompetencias();
+});
