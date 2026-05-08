@@ -1,4 +1,4 @@
-// ========== MENÚ MÓVIL ==========
+
 const menuIcon = document.getElementById('menuIcon');
 const navLinks = document.getElementById('navLinks');
 
@@ -223,21 +223,21 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Diccionario de descripciones
     const descripciones = {
-        "Programación": "La programación es el proceso de crear instrucciones para que una computadora ejecute tareas específicas.",
+        "Programacion": "La programación es el proceso de crear instrucciones para que una computadora ejecute tareas específicas.",
         "Bases de Datos": "Las bases de datos son sistemas que permiten almacenar, organizar y recuperar información de manera eficiente.",
-        "Diseño UX/UI": "El diseño UX (Experiencia de Usuario) se enfoca en que un sitio sea fácil de usar. El UI (Interfaz de Usuario) se encarga de los elementos visuales.",
+        "Diseno UX/UI": "El diseño UX (Experiencia de Usuario) se enfoca en que un sitio sea fácil de usar. El UI (Interfaz de Usuario) se encarga de los elementos visuales.",
         "Redes": "Las redes de computadoras permiten la comunicación entre dispositivos para compartir información.",
         "Ciberseguridad": "La ciberseguridad protege los sistemas y datos de ataques digitales.",
         "Cloud Computing": "La computación en la nube permite acceder a servicios a través de internet.",
         "Contabilidad": "La contabilidad registra y resume las transacciones financieras de una empresa.",
-        "Tributación": "La tributación estudia los impuestos y obligaciones fiscales.",
-        "Gestión RRHH": "La gestión de recursos humanos administra el personal de una empresa.",
+        "Tributacion": "La tributación estudia los impuestos y obligaciones fiscales.",
+        "Gestion RRHH": "La gestión de recursos humanos administra el personal de una empresa.",
         "Marketing": "El marketing son estrategias para atraer y fidelizar clientes.",
         "Ventas": "Las ventas son el proceso de intercambiar productos por dinero.",
         "Comercio Digital": "El comercio digital consiste en vender productos a través de internet.",
         "Primeros Auxilios": "Son técnicas básicas de emergencia antes de atención médica profesional.",
-        "Técnicas de Enfermería": "Incluyen toma de signos vitales y administración de medicamentos.",
-        "Cuidados Básicos": "Incluyen higiene, alimentación y confort del paciente."
+        "Tecnicas de Enfermería": "Incluyen toma de signos vitales y administración de medicamentos.",
+        "Cuidados Basicos": "Incluyen higiene, alimentación y confort del paciente."
     };
     
     // Agregar evento a todas las competencias
