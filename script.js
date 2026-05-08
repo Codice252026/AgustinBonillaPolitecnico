@@ -225,7 +225,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const descripciones = {
         "Programacion": "La programación es el proceso de crear instrucciones para que una computadora ejecute tareas específicas.",
         "Bases de Datos": "Las bases de datos son sistemas que permiten almacenar, organizar y recuperar información de manera eficiente.",
-        "Diseno UX/UI": "El diseño UX (Experiencia de Usuario) se enfoca en que un sitio sea fácil de usar. El UI (Interfaz de Usuario) se encarga de los elementos visuales.",
+        "Design UX/UI": "El diseño UX (Experiencia de Usuario) se enfoca en que un sitio sea fácil de usar. El UI (Interfaz de Usuario) se encarga de los elementos visuales.",
         "Redes": "Las redes de computadoras permiten la comunicación entre dispositivos para compartir información.",
         "Ciberseguridad": "La ciberseguridad protege los sistemas y datos de ataques digitales.",
         "Cloud Computing": "La computación en la nube permite acceder a servicios a través de internet.",
