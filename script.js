@@ -85,7 +85,7 @@ if (especialidades.length > 0) {
     });
 }
 
-// ========== VALIDACIÓN DEL FORMULARIO DE ADMISIÓN (parentesco) ==========
+//VALIDACIÓN DEL FORMULARIO DE ADMISIÓN (parentesco)// 
 const formAdmision = document.getElementById('formAdmision');
 const feedbackAdmision = document.getElementById('formFeedback');
 
@@ -106,7 +106,7 @@ if (formAdmision && feedbackAdmision) {
     });
 }
 
-// ========== MOSTRAR MENSAJE DE ÉXITO AL VOLVER DE FORMSUBMIT ==========
+// MOSTRAR MENSAJE DE ÉXITO AL VOLVER DE FORMSUBMIT//
 const urlParams = new URLSearchParams(window.location.search);
 if (urlParams.has('enviado') && urlParams.get('enviado') === 'ok') {
     if (feedbackAdmision) {
@@ -117,7 +117,7 @@ if (urlParams.has('enviado') && urlParams.get('enviado') === 'ok') {
     }
 }
 
-// ========== MOSTRAR AVISO DE TEST PSICOLÓGICO PARA 4TO DE BACHILLER ==========
+//  MOSTRAR AVISO DE TEST PSICOLÓGICO PARA 4TO DE BACHILLER //
 const cursoSelect = document.getElementById('curso');
 const avisoPsicologico = document.getElementById('avisoPsicologico');
 
@@ -137,11 +137,9 @@ if (cursoSelect && avisoPsicologico) {
     // Verificar al cargar la página (por si ya estaba seleccionado)
     verificarCurso();
 }
-// ========== CIERRE DE MENÚ EN HISTORIA (ya está cubierto por el código general) ==========
-// No se necesita código adicional, el menú ya funciona.
-// Solo asegúrate de que la clase active-nav se aplique correctamente
 
-// ========== BOTÓN FLOTANTE "ATRÁS" ==========
+
+//  BOTÓN FLOTANTE "ATRÁS" 
 const btnAtras = document.getElementById('btnAtras');
 
 if (btnAtras) {
@@ -291,5 +289,35 @@ document.addEventListener('DOMContentLoaded', function() {
         if (e.target === modal) {
             modal.style.display = 'none';
         }
+    });
+});
+//  CONTROL DEL SUBMENÚ EN MÓVIL //
+document.addEventListener('DOMContentLoaded', function() {
+    const dropdownToggles = document.querySelectorAll('.dropdown-toggle');
+    const navLinks = document.getElementById('navLinks');
+
+    dropdownToggles.forEach(toggle => {
+        toggle.addEventListener('click', function(e) {
+            // Verificar si es móvil (ancho de pantalla <= 850px)
+            if (window.innerWidth <= 850) {
+                e.preventDefault(); // Evita que se cierre el menú
+                e.stopPropagation(); // Evita que el evento se propague
+                
+                // Buscar el submenú padre
+                const parentLi = this.closest('.nav-item-dropdown');
+                if (parentLi) {
+                    // Alternar la clase 'active' en el padre para mostrar/ocultar el submenú
+                    parentLi.classList.toggle('active');
+                }
+            }
+        });
+    });
+
+    // Evitar que el clic dentro del submenú cierre el menú principal
+    const dropdownMenus = document.querySelectorAll('.dropdown-menu');
+    dropdownMenus.forEach(menu => {
+        menu.addEventListener('click', function(e) {
+            e.stopPropagation(); // Evita que el clic llegue al elemento padre
+        });
     });
 });
