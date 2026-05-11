@@ -1741,3 +1741,49 @@ body::before {
     color: white;
     transform: scale(1.05);
 }
+/* RESPONSIVE PARA MAPA Y FORMULARIO */
+
+/* Contenedor del mapa (index.html) */
+.info-card iframe {
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+    min-height: 250px;
+    border-radius: 0.8rem;
+}
+
+/* Para que el mapa no se desborde en móviles */
+@media (max-width: 768px) {
+    .info-card iframe {
+        height: 200px;
+    }
+}
+
+/* Formulario de contacto y admisión */
+.form-group input,
+.form-group select,
+.form-group textarea {
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+}
+
+/* Contenedores de formularios */
+.form-admision,
+.info-card {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: hidden;
+}
+
+/* Para evitar que el zoom en móvil desacomode el contenido */
+body {
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+}
+
+/* Asegurar que las imágenes no se salgan del contenedor */
+img {
+    max-width: 100%;
+    height: auto;
+}
