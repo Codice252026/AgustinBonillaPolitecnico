@@ -321,3 +321,46 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 });
+// ========== MENÚ RESPONSIVO ==========
+const menuIcon = document.getElementById('menuIcon');
+const navLinks = document.getElementById('navLinks');
+
+if (menuIcon && navLinks) {
+    menuIcon.addEventListener('click', () => {
+        navLinks.classList.toggle('active');
+    });
+}
+
+// ========== SUBMENÚ EN MÓVIL ==========
+const dropdowns = document.querySelectorAll('.nav-item-dropdown');
+
+if (dropdowns.length > 0) {
+    dropdowns.forEach(dropdown => {
+        const toggle = dropdown.querySelector('.dropdown-toggle');
+        if (toggle) {
+            toggle.addEventListener('click', (e) => {
+                // Solo en móviles (pantalla <= 850px)
+                if (window.innerWidth <= 850) {
+                    e.preventDefault();
+                    // Cerrar otros submenús abiertos
+                    dropdowns.forEach(other => {
+                        if (other !== dropdown && other.classList.contains('active')) {
+                            other.classList.remove('active');
+                        }
+                    });
+                    // Alternar el actual
+                    dropdown.classList.toggle('active');
+                }
+            });
+        }
+    });
+}
+
+// ========== CERRAR MENÚ AL HACER CLIC EN UN ENLACE ==========
+document.querySelectorAll('.nav-item, .dropdown-menu a').forEach(link => {
+    link.addEventListener('click', () => {
+        if (navLinks && navLinks.classList.contains('active')) {
+            navLinks.classList.remove('active');
+        }
+    });
+});
