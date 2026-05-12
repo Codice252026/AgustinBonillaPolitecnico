@@ -1787,29 +1787,87 @@ img {
     max-width: 100%;
     height: auto;
 }
-/* Estilos para el submenú en móviles */
+/* ========== MENÚ RESPONSIVO ========== */
+.nav-links {
+    display: flex;
+    gap: 0.5rem;
+    list-style: none;
+}
+
+.menu-icon {
+    display: none;
+    font-size: 1.8rem;
+    cursor: pointer;
+    color: var(--primary);
+    transition: 0.3s;
+}
+
+/* Submenú desktop */
+.dropdown-menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background: var(--beige-card);
+    min-width: 200px;
+    border-radius: 1rem;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    padding: 0.5rem 0;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-10px);
+    transition: all 0.3s ease;
+    z-index: 100;
+    list-style: none;
+}
+
+.nav-item-dropdown:hover .dropdown-menu {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+/* Responsive para móviles */
 @media (max-width: 850px) {
+    .menu-icon {
+        display: block;
+    }
+    
+    .nav-links {
+        display: none;
+        width: 100%;
+        flex-direction: column;
+        gap: 0.8rem;
+        text-align: center;
+        padding: 1.5rem 0 0.8rem 0;
+    }
+    
+    .nav-links.active {
+        display: flex;
+    }
+    
+    /* Submenú en móvil: se muestra al hacer clic */
     .dropdown-menu {
         position: static;
         opacity: 1;
         visibility: visible;
         transform: none;
-        background-color: #fdecea; /* Fondo rojo claro */
-        border-radius: 0.8rem;
+        box-shadow: none;
+        background: #fdecea;
+        padding: 0.5rem;
         margin-top: 0.5rem;
-        padding: 0.5rem 0;
-        display: none; /* Oculto por defecto */
+        display: none;
+        width: 100%;
     }
-
+    
     .nav-item-dropdown.active .dropdown-menu {
-        display: block; /* Se muestra cuando tiene la clase active */
+        display: block;
     }
-
+    
     .dropdown-toggle i {
         transition: transform 0.3s ease;
     }
-
+    
     .nav-item-dropdown.active .dropdown-toggle i {
-        transform: rotate(180deg); /* Rota la flecha cuando está activo */
+        transform: rotate(180deg);
     }
 }
