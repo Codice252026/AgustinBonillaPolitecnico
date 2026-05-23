@@ -1,91 +1,49 @@
-
+// ========== MENÚ HAMBURGUESA ==========
 const menuIcon = document.getElementById('menuIcon');
 const navLinks = document.getElementById('navLinks');
 
 if (menuIcon && navLinks) {
-    menuIcon.addEventListener('click', function() {
+    menuIcon.addEventListener('click', () => {
         navLinks.classList.toggle('active');
     });
 }
 
-// ========== CERRAR MENÚ MÓVIL AL HACER CLIC EN UN ENLACE ==========
-const navItems = document.querySelectorAll('.nav-item');
-if (navItems.length > 0) {
-    navItems.forEach(function(link) {
-        link.addEventListener('click', function() {
-            if (navLinks && navLinks.classList.contains('active')) {
-                navLinks.classList.remove('active');
-            }
-        });
-    });
-}
-
-// ========== ACTIVE NAV HIGHLIGHT (marca la página actual) ==========
-if (navItems.length > 0) {
-    const currentPage = window.location.pathname.split('/').pop() || 'index.html';
-    
-    navItems.forEach(function(item) {
-        const href = item.getAttribute('href');
-        if (href === currentPage) {
-            item.classList.add('active-nav');
-        } else {
-            item.classList.remove('active-nav');
+// ========== CERRAR MENÚ AL HACER CLIC EN UN ENLACE ==========
+document.querySelectorAll('.nav-links a').forEach(link => {
+    link.addEventListener('click', () => {
+        if (navLinks && navLinks.classList.contains('active')) {
+            navLinks.classList.remove('active');
         }
     });
-}
+});
+
+// ========== ACTIVE NAV HIGHLIGHT ==========
+const navItems = document.querySelectorAll('.nav-links a');
+const currentPage = window.location.pathname.split('/').pop() || 'index.html';
+
+navItems.forEach(item => {
+    const href = item.getAttribute('href');
+    if (href === currentPage) {
+        item.classList.add('active-nav');
+    } else {
+        item.classList.remove('active-nav');
+    }
+});
 
 // ========== ANIMACIÓN SUAVE PARA ENLACES INTERNOS ==========
-const internalLinks = document.querySelectorAll('a[href^="#"]');
-if (internalLinks.length > 0) {
-    internalLinks.forEach(function(anchor) {
-        anchor.addEventListener('click', function(e) {
-            const targetId = this.getAttribute('href');
-            if (targetId === '#') return;
-            
-            const targetElement = document.querySelector(targetId);
-            if (targetElement) {
-                e.preventDefault();
-                targetElement.scrollIntoView({
-                    behavior: 'smooth',
-                    block: 'start'
-                });
-            }
-        });
-    });
-}
-
-
-// ========== PESTAÑAS DE MATERIAS (para página de técnicos) ==========
-const especialidades = document.querySelectorAll('.especialidad');
-if (especialidades.length > 0) {
-    especialidades.forEach(function(especialidad) {
-        const tabs = especialidad.querySelectorAll('.tab-btn');
-        const contents = especialidad.querySelectorAll('.tab-content');
-        
-        if (tabs.length > 0 && contents.length > 0) {
-            tabs.forEach(function(tab) {
-                tab.addEventListener('click', function() {
-                    const targetId = this.getAttribute('data-tab');
-                    
-                    tabs.forEach(function(t) {
-                        t.classList.remove('active');
-                    });
-                    contents.forEach(function(c) {
-                        c.classList.remove('active');
-                    });
-                    
-                    this.classList.add('active');
-                    const targetContent = document.getElementById(targetId);
-                    if (targetContent) {
-                        targetContent.classList.add('active');
-                    }
-                });
-            });
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function(e) {
+        const targetId = this.getAttribute('href');
+        if (targetId === '#') return;
+        const targetElement = document.querySelector(targetId);
+        if (targetElement) {
+            e.preventDefault();
+            targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
     });
-}
+});
 
-//VALIDACIÓN DEL FORMULARIO DE ADMISIÓN (parentesco)// 
+// ========== VALIDACIÓN FORMULARIO ADMISIÓN ==========
 const formAdmision = document.getElementById('formAdmision');
 const feedbackAdmision = document.getElementById('formFeedback');
 
@@ -98,119 +56,71 @@ if (formAdmision && feedbackAdmision) {
                 !nombreValue.includes('madre') && !nombreValue.includes('padre') && !nombreValue.includes('tutor')) {
                 e.preventDefault();
                 feedbackAdmision.innerHTML = '<div class="error-message"><i class="fas fa-exclamation-triangle"></i> Por favor, especifique el parentesco en el nombre del tutor (Ej: Madre - María Pérez).</div>';
-                setTimeout(function() {
-                    feedbackAdmision.innerHTML = '';
-                }, 5000);
+                setTimeout(() => feedbackAdmision.innerHTML = '', 5000);
             }
         }
     });
 }
 
-// MOSTRAR MENSAJE DE ÉXITO AL VOLVER DE FORMSUBMIT//
+// ========== MENSAJE DE ÉXITO FORMULARIO ==========
 const urlParams = new URLSearchParams(window.location.search);
 if (urlParams.has('enviado') && urlParams.get('enviado') === 'ok') {
     if (feedbackAdmision) {
-        feedbackAdmision.innerHTML = '<div class="success-message"><i class="fas fa-check-circle"></i> ¡Solicitud enviada con éxito! Pronto recibirás respuesta. Gracias por contactarnos.</div>';
-        setTimeout(function() {
-            if (feedbackAdmision) feedbackAdmision.innerHTML = '';
-        }, 8000);
+        feedbackAdmision.innerHTML = '<div class="success-message"><i class="fas fa-check-circle"></i> ¡Solicitud enviada con éxito! Pronto recibirás respuesta.</div>';
+        setTimeout(() => feedbackAdmision.innerHTML = '', 8000);
     }
 }
 
-//  MOSTRAR AVISO DE TEST PSICOLÓGICO PARA 4TO DE BACHILLER //
+// ========== AVISO TEST PSICOLÓGICO ==========
 const cursoSelect = document.getElementById('curso');
 const avisoPsicologico = document.getElementById('avisoPsicologico');
 
 if (cursoSelect && avisoPsicologico) {
-    // Función para mostrar/ocultar el aviso según el valor seleccionado
     function verificarCurso() {
-        if (cursoSelect.value === '4to de Bachiller') {
-            avisoPsicologico.style.display = 'block';
-        } else {
-            avisoPsicologico.style.display = 'none';
-        }
+        avisoPsicologico.style.display = cursoSelect.value === '4to de Bachiller' ? 'block' : 'none';
     }
-    
-    // Escuchar cambios en el select
     cursoSelect.addEventListener('change', verificarCurso);
-    
-    // Verificar al cargar la página (por si ya estaba seleccionado)
     verificarCurso();
 }
 
-
-//  BOTÓN FLOTANTE "ATRÁS" 
+// ========== BOTÓN FLOTANTE "ATRÁS" ==========
 const btnAtras = document.getElementById('btnAtras');
-
 if (btnAtras) {
-    btnAtras.addEventListener('click', function() {
-        // Retrocede a la página anterior en el historial del navegador
-        window.history.back();
-    });
+    btnAtras.addEventListener('click', () => window.history.back());
 }
-// ========== SUBMENÚ PARA MÓVIL ==========
-const dropdownItems = document.querySelectorAll('.nav-item-dropdown');
 
-if (dropdownItems.length > 0) {
-    dropdownItems.forEach(function(item) {
-        const toggle = item.querySelector('.dropdown-toggle');
-        if (toggle) {
-            toggle.addEventListener('click', function(e) {
-                if (window.innerWidth <= 850) {
-                    e.preventDefault();
-                    item.classList.toggle('active');
-                }
-            });
-        }
-    });
-}
 // ========== LIGHTBOX PARA GALERÍA ==========
 const lightbox = document.createElement('div');
 lightbox.id = 'lightbox';
 document.body.appendChild(lightbox);
-
 const lightboxImg = document.createElement('img');
 lightbox.appendChild(lightboxImg);
 
-const imagenesGaleria = document.querySelectorAll('.galeria-card img');
-
-imagenesGaleria.forEach(img => {
-    img.addEventListener('click', (e) => {
+document.querySelectorAll('.galeria-card img').forEach(img => {
+    img.addEventListener('click', () => {
         lightbox.classList.add('active');
         lightboxImg.src = img.src;
     });
 });
 
-lightbox.addEventListener('click', () => {
-    lightbox.classList.remove('active');
-});
+lightbox.addEventListener('click', () => lightbox.classList.remove('active'));
 
+// ========== FORMULARIO DE CONTACTO ==========
 const formContacto = document.getElementById('formContacto');
 const contactoFeedback = document.getElementById('contactoFeedback');
 
 if (formContacto && contactoFeedback) {
-    const urlParams = new URLSearchParams(window.location.search);
     if (urlParams.has('enviado') && urlParams.get('enviado') === 'ok') {
         contactoFeedback.innerHTML = '<div class="success-message"><i class="fas fa-check-circle"></i> ¡Mensaje enviado con éxito! Pronto te responderemos.</div>';
-        setTimeout(() => {
-            contactoFeedback.innerHTML = '';
-        }, 8000);
+        setTimeout(() => contactoFeedback.innerHTML = '', 8000);
     }
 }
 
-  // MODAL PARA DESCRIPCIONES DE COMPETENCIAS  
+// ========== MODAL PARA DEFINICIONES (SIN TILDES) ==========
 document.addEventListener('DOMContentLoaded', function() {
-    // Crear el modal dinámicamente si no existe
+    // Crear modal si no existe
     if (!document.getElementById('modalDescripcion')) {
-        const modalHTML = `
-            <div id="modalDescripcion" class="modal">
-                <div class="modal-content">
-                    <span class="modal-close">&times;</span>
-                    <h3 id="modalTitulo"></h3>
-                    <p id="modalTexto"></p>
-                </div>
-            </div>
-        `;
+        const modalHTML = `<div id="modalDescripcion" class="modal"><div class="modal-content"><span class="modal-close">&times;</span><h3 id="modalTitulo"></h3><p id="modalTexto"></p></div></div>`;
         document.body.insertAdjacentHTML('beforeend', modalHTML);
     }
     
@@ -219,148 +129,62 @@ document.addEventListener('DOMContentLoaded', function() {
     const modalTexto = document.getElementById('modalTexto');
     const modalClose = document.querySelector('.modal-close');
     
-    // Diccionario de descripciones
-    const descripciones = {
-        "Programacion": "La programación es el proceso de crear instrucciones para que una computadora ejecute tareas específicas.",
-        "Bases de Datos": "Las bases de datos son sistemas que permiten almacenar, organizar y recuperar información de manera eficiente.",
-        "Design UX/UI": "El diseño UX (Experiencia de Usuario) se enfoca en que un sitio sea fácil de usar. El UI (Interfaz de Usuario) se encarga de los elementos visuales.",
-        "Redes": "Las redes de computadoras permiten la comunicación entre dispositivos para compartir información.",
+    // Función para normalizar texto (quita tildes y convierte ñ en n)
+    function normalizarTexto(texto) {
+        return texto
+            .toLowerCase()
+            .replace(/á/g, 'a')
+            .replace(/é/g, 'e')
+            .replace(/í/g, 'i')
+            .replace(/ó/g, 'o')
+            .replace(/ú/g, 'u')
+            .replace(/ñ/g, 'n');
+    }
+    
+    // Diccionario de definiciones SIN TILDES
+    const definiciones = {
+        "Programacion": "La programacion es el proceso de crear instrucciones para que una computadora ejecute tareas especificas.",
+        "Bases de Datos": "Las bases de datos permiten almacenar, organizar y recuperar informacion de manera eficiente.",
+        "Diseno UX/UI": "El diseno UX se enfoca en que un sitio sea facil de usar; el UI se encarga de elementos visuales.",
+        "Redes": "Las redes de computadoras permiten la comunicacion entre dispositivos para compartir informacion.",
         "Ciberseguridad": "La ciberseguridad protege los sistemas y datos de ataques digitales.",
-        "Cloud Computing": "La computación en la nube permite acceder a servicios a través de internet.",
-        "Contabilidad": "La contabilidad registra y resume las transacciones financieras de una empresa.",
-        "Tributacion": "La tributación estudia los impuestos y obligaciones fiscales.",
-        "Gestion RRHH": "La gestión de recursos humanos administra el personal de una empresa.",
+        "Cloud Computing": "La computacion en la nube permite acceder a servicios a traves de internet.",
+        "Contabilidad": "La contabilidad registra las transacciones financieras de una empresa.",
+        "Tributacion": "La tributacion estudia los impuestos y obligaciones fiscales.",
+        "Gestion RRHH": "La gestion de recursos humanos administra el personal de una empresa.",
         "Marketing": "El marketing son estrategias para atraer y fidelizar clientes.",
         "Ventas": "Las ventas son el proceso de intercambiar productos por dinero.",
-        "Comercio Digital": "El comercio digital consiste en vender productos a través de internet.",
-        "Primeros Auxilios": "Son técnicas básicas de emergencia antes de atención médica profesional.",
-        "Tecnicas de Enfermería": "Incluyen toma de signos vitales y administración de medicamentos.",
-        "Cuidados Basicos": "Incluyen higiene, alimentación y confort del paciente."
+        "Comercio Digital": "El comercio digital consiste en vender productos a traves de internet.",
+        "Primeros Auxilios": "Son tecnicas basicas de emergencia antes de atencion medica profesional.",
+        "Tecnicas de Enfermeria": "Incluyen toma de signos vitales y administracion de medicamentos.",
+        "Cuidados Basicos": "Incluyen higiene, alimentacion y confort del paciente."
     };
     
-    // Agregar evento a todas las competencias
-    const competencias = document.querySelectorAll('.competencias span');
-    console.log("Número de competencias encontradas:", competencias.length);
-    
-    competencias.forEach(span => {
-        // Limpiar el texto del span (eliminar íconos)
+    // Agregar evento a las competencias
+    document.querySelectorAll('.competencias span').forEach(span => {
         let textoOriginal = span.innerText.trim();
-        let nombreCompetencia = textoOriginal.replace(/[^\w\s\/]/g, '').trim();
-        
+        let nombreCompetencia = textoOriginal.replace(/[^\w\s]/g, '').trim();
         span.style.cursor = 'pointer';
-        span.addEventListener('click', function(e) {
+        span.addEventListener('click', (e) => {
             e.stopPropagation();
+            let nombreNormalizado = normalizarTexto(nombreCompetencia);
+            let definicion = null;
             
-            // Buscar la descripción
-            let descripcion = descripciones[nombreCompetencia];
-            
-            // Si no se encuentra, intentar buscar ignorando tildes y caracteres especiales
-            if (!descripcion) {
-                const nombreNormalizado = nombreCompetencia.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, '');
-                for (let clave in descripciones) {
-                    const claveNormalizada = clave.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, '');
-                    if (claveNormalizada === nombreNormalizado) {
-                        descripcion = descripciones[clave];
-                        break;
-                    }
+            for (let clave in definiciones) {
+                let claveNormalizada = normalizarTexto(clave);
+                if (claveNormalizada === nombreNormalizado) {
+                    definicion = definiciones[clave];
+                    break;
                 }
             }
             
-            if (descripcion) {
-                modalTitulo.innerText = nombreCompetencia;
-                modalTexto.innerText = descripcion;
-                modal.style.display = 'flex';
-            } else {
-                modalTitulo.innerText = nombreCompetencia;
-                modalTexto.innerText = `Competencia técnica del área de especialización.`;
-                modal.style.display = 'flex';
-            }
+            modalTitulo.innerText = nombreCompetencia;
+            modalTexto.innerText = definicion || "Competencia tecnica del area de especializacion.";
+            modal.style.display = 'flex';
         });
     });
     
     // Cerrar modal
-    if (modalClose) {
-        modalClose.addEventListener('click', function() {
-            modal.style.display = 'none';
-        });
-    }
-    
-    window.addEventListener('click', function(e) {
-        if (e.target === modal) {
-            modal.style.display = 'none';
-        }
-    });
-});
-//  CONTROL DEL SUBMENÚ EN MÓVIL //
-document.addEventListener('DOMContentLoaded', function() {
-    const dropdownToggles = document.querySelectorAll('.dropdown-toggle');
-    const navLinks = document.getElementById('navLinks');
-
-    dropdownToggles.forEach(toggle => {
-        toggle.addEventListener('click', function(e) {
-            // Verificar si es móvil (ancho de pantalla <= 850px)
-            if (window.innerWidth <= 850) {
-                e.preventDefault(); // Evita que se cierre el menú
-                e.stopPropagation(); // Evita que el evento se propague
-                
-                // Buscar el submenú padre
-                const parentLi = this.closest('.nav-item-dropdown');
-                if (parentLi) {
-                    // Alternar la clase 'active' en el padre para mostrar/ocultar el submenú
-                    parentLi.classList.toggle('active');
-                }
-            }
-        });
-    });
-
-    // Evitar que el clic dentro del submenú cierre el menú principal
-    const dropdownMenus = document.querySelectorAll('.dropdown-menu');
-    dropdownMenus.forEach(menu => {
-        menu.addEventListener('click', function(e) {
-            e.stopPropagation(); // Evita que el clic llegue al elemento padre
-        });
-    });
-});
-// ========== MENÚ RESPONSIVO ==========
-const menuIcon = document.getElementById('menuIcon');
-const navLinks = document.getElementById('navLinks');
-
-if (menuIcon && navLinks) {
-    menuIcon.addEventListener('click', () => {
-        navLinks.classList.toggle('active');
-    });
-}
-
-// ========== SUBMENÚ EN MÓVIL ==========
-const dropdowns = document.querySelectorAll('.nav-item-dropdown');
-
-if (dropdowns.length > 0) {
-    dropdowns.forEach(dropdown => {
-        const toggle = dropdown.querySelector('.dropdown-toggle');
-        if (toggle) {
-            toggle.addEventListener('click', (e) => {
-                // Solo en móviles (pantalla <= 850px)
-                if (window.innerWidth <= 850) {
-                    e.preventDefault();
-                    // Cerrar otros submenús abiertos
-                    dropdowns.forEach(other => {
-                        if (other !== dropdown && other.classList.contains('active')) {
-                            other.classList.remove('active');
-                        }
-                    });
-                    // Alternar el actual
-                    dropdown.classList.toggle('active');
-                }
-            });
-        }
-    });
-}
-
-// ========== CERRAR MENÚ AL HACER CLIC EN UN ENLACE ==========
-document.querySelectorAll('.nav-item, .dropdown-menu a').forEach(link => {
-    link.addEventListener('click', () => {
-        if (navLinks && navLinks.classList.contains('active')) {
-            navLinks.classList.remove('active');
-        }
-    });
+    if (modalClose) modalClose.onclick = () => modal.style.display = 'none';
+    window.onclick = (e) => { if (e.target === modal) modal.style.display = 'none'; };
 });
