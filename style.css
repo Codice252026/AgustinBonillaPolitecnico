@@ -1871,3 +1871,92 @@ img {
         transform: rotate(180deg);
     }
 }
+
+/* Mini calendario de avisos */
+.avisos-mensuales {
+    background: #fffaf2;
+    border-radius: 1rem;
+    padding: 1rem;
+    margin: 1rem 0;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    border-left: 5px solid #c0392b;
+}
+
+.avisos-header {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid #e8dcc8;
+}
+
+.avisos-header i {
+    font-size: 1.5rem;
+    color: #c0392b;
+}
+
+.avisos-header h3 {
+    font-size: 1.2rem;
+    color: #2c5282;
+    margin: 0;
+}
+
+#mesActual {
+    margin-left: auto;
+    font-size: 0.9rem;
+    color: #4a5568;
+    font-weight: normal;
+}
+
+.avisos-lista {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.aviso-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.8rem;
+    background: #fdf8ed;
+    border-radius: 0.8rem;
+    transition: all 0.2s;
+}
+
+.aviso-item:hover {
+    background: #f5efe3;
+}
+
+.aviso-fecha {
+    min-width: 80px;
+    font-weight: bold;
+    color: #c0392b;
+}
+
+.aviso-texto {
+    flex: 1;
+    color: #2d3748;
+}
+
+.aviso-item.pasado {
+    opacity: 0.6;
+    background: #e8e0d0;
+}
+
+.aviso-item.pasado .aviso-fecha {
+    color: #6b7280;
+}
+
+.aviso-item.pasado .aviso-texto {
+    color: #6b7280;
+}
+
+@media (max-width: 600px) {
+    .aviso-item {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.3rem;
+    }
+}
