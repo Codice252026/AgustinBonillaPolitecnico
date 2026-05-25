@@ -188,7 +188,7 @@ document.addEventListener('DOMContentLoaded', function() {
     if (modalClose) modalClose.onclick = () => modal.style.display = 'none';
     window.onclick = (e) => { if (e.target === modal) modal.style.display = 'none'; };
 });
-// ========== MINI CALENDARIO DE AVISOS (con pre-avisos automáticos) ==========
+// ========== MINI CALENDARIO DE AVISOS (POR BIMESTRES) ==========
 
 // LISTA DE EVENTOS (FÁCIL DE EDITAR)
 // Formato: { fecha: "YYYY-MM-DD", texto: "Descripción del evento" }
@@ -202,31 +202,60 @@ const eventos = [
 // Obtener fecha actual
 const hoy = new Date();
 const añoActual = hoy.getFullYear();
-const mesActual = hoy.getMonth();
 
-// Función para obtener eventos de un mes específico
-function obtenerEventosPorMes(año, mes) {
+// Función para obtener el bimestre de un mes (0-5)
+function getBimestre(mes) {
+    return Math.floor(mes / 2); // 0: Ene-Feb, 1: Mar-Abr, 2: May-Jun, 3: Jul-Ago, 4: Sep-Oct, 5: Nov-Dic
+}
+
+// Función para obtener el nombre del bimestre
+function getNombreBimestre(bimestre, año) {
+    const bimestres = [
+        { inicio: "Enero", fin: "Febrero" },
+        { inicio: "Marzo", fin: "Abril" },
+        { inicio: "Mayo", fin: "Junio" },
+        { inicio: "Julio", fin: "Agosto" },
+        { inicio: "Septiembre", fin: "Octubre" },
+        { inicio: "Noviembre", fin: "Diciembre" }
+    ];
+    return `${bimestres[bimestre].inicio} - ${bimestres[bimestre].fin} ${año}`;
+}
+
+// Función para obtener eventos dentro de un bimestre
+function obtenerEventosPorBimestre(año, bimestre) {
+    const mesInicio = bimestre * 2;
+    const mesFin = mesInicio + 1;
+    
     return eventos.filter(evento => {
         const fechaEvento = new Date(evento.fecha);
-        return fechaEvento.getFullYear() === año && fechaEvento.getMonth() === mes;
+        const mesEvento = fechaEvento.getMonth();
+        return fechaEvento.getFullYear() === año && mesEvento >= mesInicio && mesEvento <= mesFin;
     });
 }
 
-// Función para encontrar el próximo mes con eventos
-function obtenerProximoMesConEventos() {
-    // Buscar desde el mes actual hacia adelante
-    for (let i = 0; i < 12; i++) {
-        const mesBuscar = (mesActual + i) % 12;
+// Función para obtener el bimestre actual
+function getBimestreActual() {
+    const mesActual = hoy.getMonth();
+    return getBimestre(mesActual);
+}
+
+// Función para obtener el próximo bimestre con eventos
+function obtenerProximoBimestreConEventos() {
+    const bimestreActual = getBimestreActual();
+    
+    // Buscar desde el bimestre actual hacia adelante
+    for (let i = 0; i < 6; i++) {
+        const bimestreBuscar = (bimestreActual + i) % 6;
         let añoBuscar = añoActual;
         
-        // Si pasamos a enero, aumentamos el año
-        if (mesActual + i >= 12) {
+        // Si pasamos al siguiente año
+        if (bimestreActual + i >= 6) {
             añoBuscar = añoActual + 1;
         }
         
-        const eventosEnMes = obtenerEventosPorMes(añoBuscar, mesBuscar);
-        if (eventosEnMes.length > 0) {
-            return { año: añoBuscar, mes: mesBuscar };
+        const eventosEnBimestre = obtenerEventosPorBimestre(añoBuscar, bimestreBuscar);
+        if (eventosEnBimestre.length > 0) {
+            return { año: añoBuscar, bimestre: bimestreBuscar };
         }
     }
     return null;
@@ -234,24 +263,30 @@ function obtenerProximoMesConEventos() {
 
 // Función para obtener eventos a mostrar
 function obtenerEventosAMostrar() {
-    let añoMostrar = añoActual;
-    let mesMostrar = mesActual;
-    let esPreaviso = false;
+    const bimestreActual = getBimestreActual();
+    const eventosBimestreActual = obtenerEventosPorBimestre(añoActual, bimestreActual);
     
-    // Verificar si el mes actual tiene eventos
-    const eventosMesActual = obtenerEventosPorMes(añoActual, mesActual);
-    
-    if (eventosMesActual.length > 0) {
-        // El mes actual tiene eventos, mostrarlos normalmente
-        return { eventos: eventosMesActual, año: añoActual, mes: mesActual, esPreaviso: false };
+    if (eventosBimestreActual.length > 0) {
+        // El bimestre actual tiene eventos
+        return { 
+            eventos: eventosBimestreActual, 
+            año: añoActual, 
+            bimestre: bimestreActual, 
+            esPreaviso: false 
+        };
     } else {
-        // El mes actual no tiene eventos, buscar el próximo mes con eventos
-        const proximo = obtenerProximoMesConEventos();
+        // El bimestre actual no tiene eventos, buscar el próximo
+        const proximo = obtenerProximoBimestreConEventos();
         if (proximo) {
-            const eventosProximoMes = obtenerEventosPorMes(proximo.año, proximo.mes);
-            return { eventos: eventosProximoMes, año: proximo.año, mes: proximo.mes, esPreaviso: true };
+            const eventosProximo = obtenerEventosPorBimestre(proximo.año, proximo.bimestre);
+            return { 
+                eventos: eventosProximo, 
+                año: proximo.año, 
+                bimestre: proximo.bimestre, 
+                esPreaviso: true 
+            };
         }
-        return { eventos: [], año: añoActual, mes: mesActual, esPreaviso: false };
+        return { eventos: [], año: añoActual, bimestre: bimestreActual, esPreaviso: false };
     }
 }
 
@@ -275,32 +310,27 @@ function eventoPasado(fechaStr) {
     return fechaEvento < hoyComparar;
 }
 
-// Función para obtener nombre del mes en español
-function getNombreMes(mes) {
-    const meses = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
-    return meses[mes];
-}
-
 // Función para obtener el título del bloque
-function getTitulo(esPreaviso, año, mes) {
+function getTitulo(esPreaviso, año, bimestre) {
+    const nombreBimestre = getNombreBimestre(bimestre, año);
     if (esPreaviso) {
-        return `📢 Pre-avisos: ${getNombreMes(mes)} ${año}`;
+        return `📢 Pre-avisos: ${nombreBimestre}`;
     }
-    return `📅 ${getNombreMes(mes)} ${año}`;
+    return `📅 ${nombreBimestre}`;
 }
 
 // Renderizar eventos en el HTML
 function renderizarAvisos() {
-    const { eventos: eventosAMostrar, año, mes, esPreaviso } = obtenerEventosAMostrar();
+    const { eventos: eventosAMostrar, año, bimestre, esPreaviso } = obtenerEventosAMostrar();
     const eventosOrdenados = ordenarEventos([...eventosAMostrar]);
     const listaContainer = document.getElementById('avisosLista');
     const mesSpan = document.getElementById('mesActual');
     
     if (!listaContainer) return;
     
-    // Actualizar el mes en el header
+    // Actualizar el título en el header
     if (mesSpan) {
-        mesSpan.textContent = getTitulo(esPreaviso, año, mes);
+        mesSpan.textContent = getTitulo(esPreaviso, año, bimestre);
     }
     
     if (eventosOrdenados.length === 0) {
