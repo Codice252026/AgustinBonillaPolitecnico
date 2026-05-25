@@ -1262,3 +1262,69 @@ footer {
         gap: 0.3rem;
     }
 }
+/* ========== CURSOS Y TALLERES ========== */
+.cursos-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1.5rem;
+    margin-top: 1rem;
+}
+
+.curso-card {
+    background: var(--beige-card);
+    border-radius: 1rem;
+    padding: 1.5rem;
+    box-shadow: var(--card-shadow);
+    transition: all 0.3s ease;
+    border: 1px solid var(--beige-dark);
+    text-align: center;
+}
+
+.curso-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 30px -12px rgba(0, 0, 0, 0.15);
+    border-color: var(--accent);
+}
+
+.curso-icon {
+    font-size: 2.5rem;
+    color: var(--accent);
+    margin-bottom: 1rem;
+}
+
+.curso-card h3 {
+    font-size: 1.3rem;
+    color: var(--primary);
+    margin-bottom: 0.8rem;
+}
+
+.curso-card p {
+    color: var(--text-light);
+    line-height: 1.5;
+    margin-bottom: 1rem;
+    font-size: 0.9rem;
+}
+
+.curso-competencias {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    justify-content: center;
+    margin-top: 0.5rem;
+}
+
+.curso-competencias span {
+    background: var(--beige-dark);
+    padding: 0.3rem 0.8rem;
+    border-radius: 2rem;
+    font-size: 0.7rem;
+    font-weight: 500;
+    color: var(--primary);
+}
+
+@media (max-width: 768px) {
+    .cursos-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+}
