@@ -188,26 +188,71 @@ document.addEventListener('DOMContentLoaded', function() {
     if (modalClose) modalClose.onclick = () => modal.style.display = 'none';
     window.onclick = (e) => { if (e.target === modal) modal.style.display = 'none'; };
 });
-// ========== MINI CALENDARIO DE AVISOS ==========
+// ========== MINI CALENDARIO DE AVISOS (con pre-avisos automáticos) ==========
+
 // LISTA DE EVENTOS (FÁCIL DE EDITAR)
 // Formato: { fecha: "YYYY-MM-DD", texto: "Descripción del evento" }
 const eventos = [
-    { fecha: "2026-06-03", texto: "Merito estudiantil y magisterial" },
-    { fecha: "2026-06-10", texto: "Graduacion prom Blessed 25-26" },
-    { fecha: "2026-06-23", texto: "Pruebas nacionales (23 al 26)" }
+    { fecha: "2026-06-03", texto: "🎓 Mérito estudiantil y magisterial" },
+    { fecha: "2026-06-10", texto: "🎉 Graduación promoción Blessed 25-26" },
+    { fecha: "2026-06-23", texto: "📚 Pruebas nacionales (23 al 26)" },
+    // Agrega más eventos aquí cuando quieras
 ];
 
-// Obtener mes actual
+// Obtener fecha actual
 const hoy = new Date();
 const añoActual = hoy.getFullYear();
-const mesActual = hoy.getMonth(); // 0-11
+const mesActual = hoy.getMonth();
 
-// Función para obtener eventos del mes actual
-function obtenerEventosDelMes() {
+// Función para obtener eventos de un mes específico
+function obtenerEventosPorMes(año, mes) {
     return eventos.filter(evento => {
         const fechaEvento = new Date(evento.fecha);
-        return fechaEvento.getFullYear() === añoActual && fechaEvento.getMonth() === mesActual;
+        return fechaEvento.getFullYear() === año && fechaEvento.getMonth() === mes;
     });
+}
+
+// Función para encontrar el próximo mes con eventos
+function obtenerProximoMesConEventos() {
+    // Buscar desde el mes actual hacia adelante
+    for (let i = 0; i < 12; i++) {
+        const mesBuscar = (mesActual + i) % 12;
+        let añoBuscar = añoActual;
+        
+        // Si pasamos a enero, aumentamos el año
+        if (mesActual + i >= 12) {
+            añoBuscar = añoActual + 1;
+        }
+        
+        const eventosEnMes = obtenerEventosPorMes(añoBuscar, mesBuscar);
+        if (eventosEnMes.length > 0) {
+            return { año: añoBuscar, mes: mesBuscar };
+        }
+    }
+    return null;
+}
+
+// Función para obtener eventos a mostrar
+function obtenerEventosAMostrar() {
+    let añoMostrar = añoActual;
+    let mesMostrar = mesActual;
+    let esPreaviso = false;
+    
+    // Verificar si el mes actual tiene eventos
+    const eventosMesActual = obtenerEventosPorMes(añoActual, mesActual);
+    
+    if (eventosMesActual.length > 0) {
+        // El mes actual tiene eventos, mostrarlos normalmente
+        return { eventos: eventosMesActual, año: añoActual, mes: mesActual, esPreaviso: false };
+    } else {
+        // El mes actual no tiene eventos, buscar el próximo mes con eventos
+        const proximo = obtenerProximoMesConEventos();
+        if (proximo) {
+            const eventosProximoMes = obtenerEventosPorMes(proximo.año, proximo.mes);
+            return { eventos: eventosProximoMes, año: proximo.año, mes: proximo.mes, esPreaviso: true };
+        }
+        return { eventos: [], año: añoActual, mes: mesActual, esPreaviso: false };
+    }
 }
 
 // Función para ordenar eventos por fecha
@@ -236,10 +281,18 @@ function getNombreMes(mes) {
     return meses[mes];
 }
 
+// Función para obtener el título del bloque
+function getTitulo(esPreaviso, año, mes) {
+    if (esPreaviso) {
+        return `📢 Pre-avisos: ${getNombreMes(mes)} ${año}`;
+    }
+    return `📅 ${getNombreMes(mes)} ${año}`;
+}
+
 // Renderizar eventos en el HTML
 function renderizarAvisos() {
-    const eventosDelMes = obtenerEventosDelMes();
-    const eventosOrdenados = ordenarEventos(eventosDelMes);
+    const { eventos: eventosAMostrar, año, mes, esPreaviso } = obtenerEventosAMostrar();
+    const eventosOrdenados = ordenarEventos([...eventosAMostrar]);
     const listaContainer = document.getElementById('avisosLista');
     const mesSpan = document.getElementById('mesActual');
     
@@ -247,11 +300,11 @@ function renderizarAvisos() {
     
     // Actualizar el mes en el header
     if (mesSpan) {
-        mesSpan.textContent = `${getNombreMes(mesActual)} ${añoActual}`;
+        mesSpan.textContent = getTitulo(esPreaviso, año, mes);
     }
     
     if (eventosOrdenados.length === 0) {
-        listaContainer.innerHTML = '<div class="aviso-item" style="justify-content: center;"><span class="aviso-texto">No hay eventos programados para este mes</span></div>';
+        listaContainer.innerHTML = '<div class="aviso-item" style="justify-content: center;"><span class="aviso-texto">No hay eventos programados próximamente</span></div>';
         return;
     }
     
