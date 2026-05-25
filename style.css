@@ -1328,3 +1328,62 @@ footer {
         gap: 1rem;
     }
 }
+/* ========== CORRECCIONES PARA MAPA Y FORMULARIO EN MÓVIL ========== */
+
+/* Contenedor del mapa */
+.mapa-container {
+    width: 100%;
+    margin: 0.5rem 0;
+}
+
+.mapa-container iframe {
+    width: 100%;
+    height: 250px;
+    border-radius: 0.8rem;
+}
+
+/* Ajustes para el mapa en móvil */
+@media (max-width: 768px) {
+    .mapa-container iframe {
+        height: 200px;
+    }
+}
+
+/* Formulario de contacto en la página de inicio */
+#contacto .info-card .form-group {
+    width: 100%;
+}
+
+#contacto .info-card input,
+#contacto .info-card textarea {
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+}
+
+/* Botón de solicitar información */
+.btn-contacto {
+    width: 100%;
+    padding: 0.8rem;
+    font-size: 1rem;
+}
+
+/* Asegurar que las dos columnas de contacto no se desborden */
+#contacto .two-columns {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+}
+
+#contacto .info-card {
+    flex: 1;
+    min-width: 250px;
+    overflow: hidden;
+}
+
+/* En móvil, que las columnas se apilen */
+@media (max-width: 768px) {
+    #contacto .info-card {
+        min-width: 100%;
+    }
+}
