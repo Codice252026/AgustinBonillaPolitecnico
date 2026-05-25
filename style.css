@@ -31,6 +31,7 @@ body {
     --border-radius: 1rem;
 }
 
+/* TOP BAR */
 .top-bar {
     background-color: var(--primary-dark);
     color: #fdf8ed;
@@ -42,6 +43,7 @@ body {
     gap: 0.5rem;
 }
 
+/* NAVBAR */
 .navbar {
     background: var(--beige-card);
     box-shadow: 0 2px 15px rgba(0, 0, 0, 0.05);
@@ -113,6 +115,7 @@ body {
     color: var(--primary);
 }
 
+/* HERO */
 .hero {
     background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
     color: #fdf8ed;
@@ -154,6 +157,7 @@ body {
     z-index: 1;
 }
 
+/* BOTONES */
 .btn-cta {
     background-color: var(--accent);
     color: white;
@@ -193,6 +197,7 @@ body {
     left: 100%;
 }
 
+/* SECCIONES */
 section {
     padding: 4rem 2rem;
     max-width: 1300px;
@@ -208,6 +213,7 @@ section {
     padding-left: 1rem;
 }
 
+/* CARDS GRID */
 .cards-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
@@ -237,14 +243,15 @@ section {
 
 .tech-card h3 {
     font-size: 1.5rem;
-    color: var(--primary);
     margin-bottom: 0.8rem;
+    color: var(--primary);
 }
 
 .tech-card p {
     color: var(--text-light);
 }
 
+/* TWO COLUMNS */
 .two-columns {
     display: flex;
     flex-wrap: wrap;
@@ -284,6 +291,7 @@ section {
     line-height: 1.6;
 }
 
+/* FAMILIAS PROFESIONALES */
 .familia-card {
     background: var(--beige-card);
     border-radius: 1.5rem;
@@ -363,6 +371,7 @@ section {
     margin-bottom: 1rem;
 }
 
+/* COMPETENCIAS */
 .competencias {
     display: flex;
     flex-wrap: wrap;
@@ -393,6 +402,7 @@ section {
     color: var(--accent);
 }
 
+/* FORMULARIO ADMISIÓN */
 .form-admision {
     background: var(--beige-card);
     border-radius: 1.5rem;
@@ -506,6 +516,7 @@ section {
     transform: scale(1.02);
 }
 
+/* REQUISITOS LISTA */
 .requisitos-lista {
     list-style: none;
     padding: 0;
@@ -527,6 +538,7 @@ section {
     font-size: 1.2rem;
 }
 
+/* MENSAJES */
 .success-message {
     background: #dcfce7;
     color: #15803d;
@@ -560,6 +572,7 @@ section {
     }
 }
 
+/* GOOGLE MAPS */
 .btn-maps {
     display: inline-flex;
     align-items: center;
@@ -580,6 +593,7 @@ section {
     transform: scale(1.02);
 }
 
+/* BOTÓN ATRÁS */
 .btn-atras {
     position: fixed;
     bottom: 2rem;
@@ -615,6 +629,7 @@ section {
     }
 }
 
+/* GALERÍA */
 .galeria-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
@@ -658,6 +673,7 @@ section {
     margin: 0;
 }
 
+/* MODAL */
 .modal {
     display: none;
     position: fixed;
@@ -725,6 +741,7 @@ section {
     color: var(--accent);
 }
 
+/* AVISO PSICOLÓGICO */
 .aviso-psicologico {
     background: #eef2ff;
     border-left: 5px solid var(--accent);
@@ -753,6 +770,7 @@ section {
     }
 }
 
+/* FOOTER */
 footer {
     background: var(--primary-dark);
     color: #cbd5e1;
@@ -761,6 +779,7 @@ footer {
     margin-top: 2rem;
 }
 
+/* RESPONSIVE GENERAL */
 @media (max-width: 850px) {
     .navbar {
         padding: 0.8rem 1.5rem;
@@ -1090,6 +1109,15 @@ footer {
 }
 
 /* ========== HISTORIA ========== */
+.historia-intro {
+    text-align: center;
+    max-width: 800px;
+    margin: 0 auto 2rem auto;
+    font-size: 1.1rem;
+    color: var(--text-light);
+    line-height: 1.6;
+}
+
 .historia-card {
     background: white;
     border-radius: 1.5rem;
@@ -1123,15 +1151,6 @@ footer {
     margin-bottom: 0.8rem;
 }
 
-.historia-intro {
-    text-align: center;
-    max-width: 800px;
-    margin: 0 auto 2rem auto;
-    font-size: 1.1rem;
-    color: var(--text-light);
-    line-height: 1.6;
-}
-
 .stats-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
@@ -1158,5 +1177,88 @@ footer {
     
     .stats-grid {
         grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+/* ========== MINI CALENDARIO DE AVISOS ========== */
+.avisos-mensuales {
+    background: #fffaf2;
+    border-radius: 1rem;
+    padding: 1rem;
+    margin: 1rem 0;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    border-left: 5px solid var(--accent);
+}
+
+.avisos-header {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--beige-dark);
+}
+
+.avisos-header i {
+    font-size: 1.5rem;
+    color: var(--accent);
+}
+
+.avisos-header h3 {
+    font-size: 1.2rem;
+    color: var(--primary);
+    margin: 0;
+}
+
+#mesActual {
+    margin-left: auto;
+    font-size: 0.9rem;
+    color: var(--text-light);
+}
+
+.avisos-lista {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.aviso-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.8rem;
+    background: #fdf8ed;
+    border-radius: 0.8rem;
+}
+
+.aviso-fecha {
+    min-width: 70px;
+    font-weight: bold;
+    color: var(--accent);
+}
+
+.aviso-texto {
+    flex: 1;
+    color: var(--text-dark);
+}
+
+.aviso-item.pasado {
+    opacity: 0.6;
+    background: #e8e0d0;
+}
+
+.aviso-item.pasado .aviso-fecha {
+    color: #6b7280;
+}
+
+.aviso-item.pasado .aviso-texto {
+    color: #6b7280;
+}
+
+@media (max-width: 600px) {
+    .aviso-item {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.3rem;
     }
 }
