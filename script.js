@@ -295,10 +295,13 @@ function ordenarEventos(eventosArray) {
     return eventosArray.sort((a, b) => new Date(a.fecha) - new Date(b.fecha));
 }
 
-// Función para formatear fecha (DD/MM)
+// Función para formatear fecha (DD/MM) SIN ajuste de zona horaria
 function formatearFecha(fechaStr) {
-    const fecha = new Date(fechaStr);
-    return `${fecha.getDate().toString().padStart(2, '0')}/${(fecha.getMonth() + 1).toString().padStart(2, '0')}`;
+    // Dividir la fecha manualmente (YYYY-MM-DD)
+    const partes = fechaStr.split('-');
+    const dia = partes[2];
+    const mes = partes[1];
+    return `${dia}/${mes}`;
 }
 
 // Función para verificar si un evento ya pasó
